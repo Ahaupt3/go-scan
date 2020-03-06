@@ -1,9 +1,11 @@
 package main
 
 import (
+	"log"
 	"net"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/ahaupt3/go-scan/scan"
 	"github.com/fatih/color"
@@ -34,6 +36,7 @@ func checkArgs() {
 }
 
 func main() {
+	start := time.Now()
 	checkArgs()
 
 	color.Yellow("Scanning Ports...")
@@ -48,4 +51,6 @@ func main() {
 		color.Red("Invalid Scan Type!")
 		os.Exit(1)
 	}
+	elapsed := time.Since(start)
+	log.Printf("go-scan took %s", elapsed)
 }
