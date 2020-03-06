@@ -13,14 +13,14 @@ import (
 
 var open = 0
 
-type PortResult struct {
+type portResult struct {
 	Port     int
 	Protocol string
 	State    string
 }
 
-func ScanPort(protocol, ip string, port int) PortResult {
-	result := PortResult{Port: port, Protocol: strings.ToUpper(protocol)}
+func scanPort(protocol, ip string, port int) portResult {
+	result := portResult{Port: port, Protocol: strings.ToUpper(protocol)}
 
 	address := ip + ":" + strconv.Itoa(port)
 	conn, err := net.DialTimeout(protocol, address, 3*time.Second)
@@ -35,11 +35,11 @@ func ScanPort(protocol, ip string, port int) PortResult {
 	return result
 }
 
-func setScan(protocol, ip string, maxPort int) []PortResult {
-	var results []PortResult
+func setScan(protocol, ip string, maxPort int) []portResult {
+	var results []portResult
 
 	for port := 1; port <= maxPort; port++ {
-		results = append(results, ScanPort(protocol, ip, port))
+		results = append(results, scanPort(protocol, ip, port))
 	}
 	return results
 }
@@ -68,7 +68,7 @@ func UDPScan(ip string) {
 	results(setScan(protocol, ip, maxPort))
 }
 
-func results(scanresults []PortResult) {
+func results(scanresults []portResult) {
 	cleaned := sortResults(cleanResults(scanresults))
 
 	for i := 0; i < len(cleaned); i++ {
@@ -79,8 +79,8 @@ func results(scanresults []PortResult) {
 	os.Exit(0)
 }
 
-func cleanResults(dirty []PortResult) []PortResult {
-	var cleaned []PortResult
+func cleanResults(dirty []portResult) []portResult {
+	var cleaned []portResult
 
 	for i := 0; i < len(dirty); i++ {
 		if dirty[i].State == "Open" {
@@ -92,7 +92,7 @@ func cleanResults(dirty []PortResult) []PortResult {
 	return cleaned
 }
 
-func sortResults(clean []PortResult) []PortResult {
+func sortResults(clean []portResult) []portResult {
 	sort.Slice(clean, func(i, j int) bool {
 		return clean[i].Port < clean[j].Port
 	})
