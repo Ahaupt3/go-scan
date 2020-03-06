@@ -35,38 +35,41 @@ func ScanPort(protocol, ip string, port int) PortResult {
 	return result
 }
 
+func setScan(protocol, ip string, maxPort int) []PortResult {
+	var results []PortResult
+
+	for port := 1; port <= maxPort; port++ {
+		results = append(results, ScanPort(protocol, ip, port))
+	}
+	return results
+}
+
+// QuickScan - TCP scan of first 1024 ports
 func QuickScan(ip string) {
-	var results []PortResult
+	protocol := "tcp"
+	maxPort := 1024
 
-	for port := 1; port <= 1024; port++ {
-		results = append(results, ScanPort("tcp", ip, port))
-	}
-
-	Results(results)
+	results(setScan(protocol, ip, maxPort))
 }
 
+// FullScan - TCP scan of all 65,535 ports
 func FullScan(ip string) {
-	var results []PortResult
+	protocol := "tcp"
+	maxPort := 65535
 
-	for port := 1; port <= 65535; port++ {
-		results = append(results, ScanPort("tcp", ip, port))
-	}
-
-	Results(results)
+	results(setScan(protocol, ip, maxPort))
 }
 
+// UDPScan - UDP scan of all 65,535 ports
 func UDPScan(ip string) {
-	var results []PortResult
+	protocol := "udp"
+	maxPort := 65535
 
-	for port := 1; port <= 65535; port++ {
-		results = append(results, ScanPort("udp", ip, port))
-	}
-
-	Results(results)
+	results(setScan(protocol, ip, maxPort))
 }
 
-func Results(scanresults []PortResult) {
-	cleaned := SortResults(CleanResults(scanresults))
+func results(scanresults []PortResult) {
+	cleaned := sortResults(cleanResults(scanresults))
 
 	for i := 0; i < len(cleaned); i++ {
 		color.Green("Port: " + strconv.Itoa(cleaned[i].Port) + "/" + cleaned[i].Protocol + " - " + cleaned[i].State)
@@ -76,7 +79,7 @@ func Results(scanresults []PortResult) {
 	os.Exit(0)
 }
 
-func CleanResults(dirty []PortResult) []PortResult {
+func cleanResults(dirty []PortResult) []PortResult {
 	var cleaned []PortResult
 
 	for i := 0; i < len(dirty); i++ {
@@ -89,7 +92,7 @@ func CleanResults(dirty []PortResult) []PortResult {
 	return cleaned
 }
 
-func SortResults(clean []PortResult) []PortResult {
+func sortResults(clean []PortResult) []PortResult {
 	sort.Slice(clean, func(i, j int) bool {
 		return clean[i].Port < clean[j].Port
 	})

@@ -12,29 +12,29 @@ import (
 var ip = os.Args[1]
 var scanType = strings.ToLower(os.Args[2])
 
-func Usage() {
+func usage() {
 	color.Red("Usage: " + os.Args[0] + " <ip> <scan type: quick|full|udp>")
 	os.Exit(1)
 }
 
-func CheckArgs() {
+func checkArgs() {
 	if len(os.Args) < 3 {
 		color.Red("Not enough arguments!")
-		Usage()
+		usage()
 	} else if len(os.Args) > 3 {
 		color.Red("Too many arguments!")
-		Usage()
+		usage()
 	} else if net.ParseIP(ip) == nil {
 		color.Red("Invalid IP!")
-		Usage()
+		usage()
 	} else if scanType != "quick" && scanType != "full" && scanType != "udp" {
 		color.Red("Invalid Scan Type!")
-		Usage()
+		usage()
 	}
 }
 
 func main() {
-	CheckArgs()
+	checkArgs()
 
 	color.Yellow("Scanning Ports...")
 
