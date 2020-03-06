@@ -10,7 +10,7 @@ go install go-scan.go
 
 ## Usage
 ``` bash
-port-scan-go <ip> <scan type: quick|full|udp>
+go-scan <ip> <scan type: quick|full|udp>
 ```
 
 ## Scan Types
