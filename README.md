@@ -14,8 +14,10 @@ port-scan-go <ip> <scan type: ping|quick|full>
 ```
 
 ## Scan Types
-### Ping
-
 ### Quick
+Scans first 1024 TCP ports.
 
 ### Full
+Scans all 65,535 TCP ports.
+### UDP
+Scans first 65,535 UDP ports.
