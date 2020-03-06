@@ -1,0 +1,27 @@
+main:
+*****
+- Usage - prints usage info
+- CheckArgs - verifies given arguments
+- Scan - compares scantype given & runs
+- main - main program
+
+scan/scan:
+**********
+  open - store # of open ports found
+/ output - store ScanResult output
++ ScanResult - 
+- ScanPort - scans based on ip, protocol, port
+* QuickScan - runs tcp scan for 1024 ports
+* FullScan - runs tcp scan for 65535 ports
+* UDPScan - runs udp scan for 65535 ports
+- Results - clean & sort scan results
+    - remove closed ports
+    - sort by port
+    - return slice
+
+* NOTES *
+  = variable
+/ = slice
++ = struct
+- = function
+* = goroutine function
