@@ -17,7 +17,7 @@ go-scan <ip> <scan type: quick|full|udp>
 Scans first 1024 TCP ports.
 
 ### Full
-Scans all 65,535 TCP ports.
+Scans all 65,535 TCP ports (issues w/ goroutines overwriting results).
 
 ### UDP
-Scans all 65,535 UDP ports.
+Scans all 65,535 UDP ports (issues w/ goroutines overwriting results).
