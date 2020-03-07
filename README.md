@@ -3,8 +3,7 @@ A simple port scanner built in Go.
 
 ## Install
 ```bash
-git clone https://www.github.com/ahaupt3/go-scan/master
-cd go-scan
+git clone https://www.github.com/ahaupt3/go-scan/goroutines
 go install go-scan.go
 ```
 
