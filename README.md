@@ -19,6 +19,8 @@ Scans first 1024 TCP ports.
 
 ### Full
 Scans all 65,535 TCP ports.
+(issues w/ goroutines overwriting)
 
 ### UDP
 Scans all 65,535 UDP ports.
+(issues w/ goroutines overwriting results)
